@@ -69,3 +69,4 @@ rm $WORKINGDIR/$ID.img
 rmdir $WORKINGDIR/$ID
 
 echo "VMware image created in $WORKINGDIR/$ID.vmdk"
+echo "You can now create a new Virtualbox/VMware host and use the created image as hard disk."
