@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VZCTL=$(whereis vzctl)
-VZLIST=$(whereis vzlist)
-KVMIMG=$(whereis kvm-img)
+VZCTL=$(which vzctl)
+VZLIST=$(which vzlist)
+KVMIMG=$(which kvm-img)
 WORKINGDIR=$1
 MACHINE_ID=$2
 
