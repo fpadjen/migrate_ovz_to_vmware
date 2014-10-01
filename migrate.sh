@@ -53,13 +53,13 @@ sed -i -e s/venet0:0/eth0/g $WORKINGDIR/$ID/etc/network/interfaces
 echo `blkid $WORKINGDIR/$ID.img | awk '{print $2}'` / ext4 errors=remount-ro 0 1 >> $WORKINGDIR/$ID/etc/fstab
 
 echo "Installing grub and kernel"
-for i in dev sys proc ; do mount --bind /$i $WORKINGDIR/$ID/$i
+for i in dev sys proc ; do mount --bind /$i $WORKINGDIR/$ID/$i ; done
 grub-install --force --root-directory $WORKINGDIR/$ID/ $LOOPDEV
 chroot $WORKINGDIR/$ID apt-get -qy install linux-image-amd64 grub-pc
 chroot $WORKINGDIR/$ID update-grub
 
 echo "Cleaning up..."
-for i in dev sys proc ; do umount $WORKINGDIR/$ID/$i
+for i in dev sys proc ; do umount $WORKINGDIR/$ID/$i ; done
 umount $WORKINGDIR/$ID
 echo "Converting image from OpenVZ to VMware..."
 kvm-img convert -f raw $WORKINGDIR/$ID.img -O vmdk $WORKINGDIR/$ID.vmdk
