@@ -8,7 +8,7 @@ MACHINE_ID=$2
 
 if [ -z "$WORKINGDIR" ] ; then
   echo "Script to create VMware containers from OpenVZ containers."
-  echo "Needs to run on the OpenVZ host."
+  echo "Needs to run on the OpenVZ host. Container must be up and running."
   echo "Start with $0 /path/to/image/outputdir numeric_machine_id"
   echo "Example: $0 /tmp 1234"
   exit 0
