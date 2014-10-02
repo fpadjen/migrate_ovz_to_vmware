@@ -24,7 +24,7 @@ echo "Checking Container ID and associated disk space..."
 ID=`$VZLIST -a | grep -vi stopped | awk '{print $1}' | grep -v CTID | grep $MACHINE_ID`
 
 if [ -z "$ID" ] ; then
-  echo "Container ID $ID not found. Exiting."
+  echo "Container ID $MACHINE_ID not found. Exiting."
   exit 1
 fi
 
