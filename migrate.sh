@@ -52,19 +52,19 @@ sed -i -e s/127.0.0.1/127.1.1.1/g $WORKINGDIR/$ID/etc/network/interfaces
 sed -i -e s/venet0:0/eth0/g $WORKINGDIR/$ID/etc/network/interfaces
 echo `blkid $WORKINGDIR/$ID.img | awk '{print $2}'` / ext4 errors=remount-ro 0 1 >> $WORKINGDIR/$ID/etc/fstab
 cat << EOF >> /etc/inittab
-1:2345:respawn:/sbin/getty 38400 tty1
-2:23:respawn:/sbin/getty 38400 tty2
-3:23:respawn:/sbin/getty 38400 tty3
-4:23:respawn:/sbin/getty 38400 tty4
-5:23:respawn:/sbin/getty 38400 tty5
-6:23:respawn:/sbin/getty 38400 tty6
+1:2345:respawn:/sbin/mingetty 38400 tty1
+2:23:respawn:/sbin/mingetty 38400 tty2
+3:23:respawn:/sbin/mingetty 38400 tty3
+4:23:respawn:/sbin/mingetty 38400 tty4
+5:23:respawn:/sbin/mingetty 38400 tty5
+6:23:respawn:/sbin/mingetty 38400 tty6
 EOF
 
 
 echo "Installing grub and kernel"
 for i in dev sys proc ; do mount --bind /$i $WORKINGDIR/$ID/$i ; done
 grub-install --force --root-directory $WORKINGDIR/$ID/ $LOOPDEV
-chroot $WORKINGDIR/$ID apt-get -qy install linux-image-amd64 grub-pc util-linux
+chroot $WORKINGDIR/$ID apt-get -qy install linux-image-amd64 grub-pc util-linux mingetty
 chroot $WORKINGDIR/$ID update-grub
 
 echo "Cleaning up..."
