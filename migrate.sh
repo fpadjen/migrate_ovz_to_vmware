@@ -51,7 +51,7 @@ rsync --numeric-ids -avP /var/lib/vz/private/$ID/* $WORKINGDIR/$ID/
 sed -i -e s/127.0.0.1/127.1.1.1/g $WORKINGDIR/$ID/etc/network/interfaces
 sed -i -e s/venet0:0/eth0/g $WORKINGDIR/$ID/etc/network/interfaces
 echo `blkid $WORKINGDIR/$ID.img | awk '{print $2}'` / ext4 errors=remount-ro 0 1 >> $WORKINGDIR/$ID/etc/fstab
-cat << EOF > /etc/inittab
+cat << EOF > $WORKINGDIR/$ID/etc/inittab
 id:2:initdefault:
 si::sysinit:/etc/init.d/rcS
 ~~:S:wait:/sbin/sulogin
