@@ -8,7 +8,7 @@ MACHINE_ID=$2
 IMAGE_NAME=$3
 
 
-if [ "$#" -eq 0 ] ; then
+if [ "$#" -ne 3 ] ; then
   echo "Script to create VMware containers from OpenVZ containers."
   echo "Needs to run on the OpenVZ host. Container must be up and running."
   echo "Start with $0 /path/to/image/outputdir numeric_machine_id image_name"
