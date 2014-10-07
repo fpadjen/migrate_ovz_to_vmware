@@ -5,12 +5,14 @@ VZLIST=$(which vzlist)
 KVMIMG=$(which kvm-img)
 WORKINGDIR=$1
 MACHINE_ID=$2
+IMAGE_NAME=$3
 
-if [ -z "$WORKINGDIR" ] ; then
+
+if [ "$#" -eq 0 ] ; then
   echo "Script to create VMware containers from OpenVZ containers."
   echo "Needs to run on the OpenVZ host. Container must be up and running."
-  echo "Start with $0 /path/to/image/outputdir numeric_machine_id"
-  echo "Example: $0 /tmp 1234"
+  echo "Start with $0 /path/to/image/outputdir numeric_machine_id image_name"
+  echo "Example: $0 /tmp 1234 fooserver"
   exit 0
 fi
 
