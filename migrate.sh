@@ -80,6 +80,7 @@ EOF
 
 echo "Installing grub and kernel"
 for i in dev sys proc ; do mount --bind /$i $WORKINGDIR/$ID/$i ; done
+chroot $WORKINGDIR/$ID apt-get update
 grub-install --force --root-directory $WORKINGDIR/$ID/ $LOOPDEV
 chroot $WORKINGDIR/$ID apt-get -qy install linux-image-amd64 grub-pc util-linux mingetty
 chroot $WORKINGDIR/$ID update-grub
