@@ -30,8 +30,8 @@ if [ -z "$ID" ] ; then
   exit 1
 fi
 
-NEEDED_SPACE=`$VZCTL exec $ID df -m | grep /$ | awk '{print $2}'`
-DISKSPACE_WORKINGDIR=`df -m $WORKINGDIR | grep -v Used | awk '{print $4}'`
+NEEDED_SPACE=`$VZCTL exec $ID df -Pm | grep /$ | awk '{print $2}'`
+DISKSPACE_WORKINGDIR=`df -Pm $WORKINGDIR | grep -v Used | awk '{print $4}'`
 
 if [ "$((NEEDED_SPACE*2))" -gt "$DISKSPACE_WORKINGDIR" ] ; then
   echo "Not enough free space for images in $WORKINGDIR. Need at least $((NEEDED_SPACE*2))MB. Exiting."
