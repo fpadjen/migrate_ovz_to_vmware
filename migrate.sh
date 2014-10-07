@@ -5,14 +5,14 @@ VZLIST=$(which vzlist)
 KVMIMG=$(which kvm-img)
 WORKINGDIR=$1
 MACHINE_ID=$2
-IMAGE_NAME=$3
+IMAGE_NAME=`$VZLIST -a | grep $MACHINE_ID | awk '{print $5}'`
 
 
-if [ "$#" -ne 3 ] ; then
+if [ "$#" -ne 2 ] ; then
   echo "Script to create VMware containers from OpenVZ containers."
   echo "Needs to run on the OpenVZ host. Container must be up and running."
-  echo "Start with $0 /path/to/image/outputdir numeric_machine_id image_name"
-  echo "Example: $0 /tmp 1234 fooserver"
+  echo "Start with $0 /path/to/image/outputdir numeric_machine_id"
+  echo "Example: $0 /tmp 1234"
   exit 0
 fi
 
@@ -90,11 +90,14 @@ echo "Cleaning up..."
 for i in dev sys proc ; do umount $WORKINGDIR/$ID/$i ; done
 umount $WORKINGDIR/$ID
 echo "Converting image from OpenVZ to VMware..."
-kvm-img convert -f raw $WORKINGDIR/$ID.img -O vmdk $WORKINGDIR/$ID.vmdk
+if [ -z "$IMAGE_NAME" ] ; then
+  IMAGE_NAME=$ID
+fi
+kvm-img convert -f raw $WORKINGDIR/$ID.img -O vmdk $WORKINGDIR/$IMAGE_NAME.vmdk
 
 echo "Cleaning up..."
 rm $WORKINGDIR/$ID.img
 rmdir $WORKINGDIR/$ID
 
-echo "VMware image created in $WORKINGDIR/$ID.vmdk"
+echo "VMware image created in $WORKINGDIR/$IMAGE_NAME.vmdk"
 echo "You can now create a new Virtualbox/VMware host and use the created image as hard disk."
