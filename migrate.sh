@@ -1,13 +1,5 @@
 #!/bin/bash
 
-VZCTL=$(which vzctl)
-VZLIST=$(which vzlist)
-KVMIMG=$(which kvm-img)
-WORKINGDIR=$1
-MACHINE_ID=$2
-IMAGE_NAME=`$VZLIST -a | grep $MACHINE_ID | awk '{print $5}'`
-
-
 if [ "$#" -ne 2 ] ; then
   echo "Script to create VMware containers from OpenVZ containers."
   echo "Needs to run on the OpenVZ host. Container must be up and running."
@@ -15,6 +7,13 @@ if [ "$#" -ne 2 ] ; then
   echo "Example: $0 /tmp 1234"
   exit 0
 fi
+
+VZCTL=$(which vzctl)
+VZLIST=$(which vzlist)
+KVMIMG=$(which kvm-img)
+WORKINGDIR=$1
+MACHINE_ID=$2
+IMAGE_NAME=`$VZLIST -a | grep $MACHINE_ID | awk '{print $5}'`
 
 
 if [ -z "$VZCTL" ] || [ -z "$VZLIST" ] || [ -z "$KVMIMG" ]; then
