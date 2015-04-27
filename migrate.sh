@@ -13,7 +13,7 @@ VZLIST=$(which vzlist)
 KVMIMG=$(which kvm-img)
 WORKINGDIR=$1
 MACHINE_ID=$2
-IMAGE_NAME=`$VZLIST -a | grep $MACHINE_ID | awk '{print $5}'`
+IMAGE_NAME=`$VZLIST -a | grep -w $MACHINE_ID | awk '{print $5}'`
 
 
 if [ -z "$VZCTL" ] || [ -z "$VZLIST" ] || [ -z "$KVMIMG" ]; then
