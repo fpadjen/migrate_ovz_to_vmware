@@ -22,7 +22,7 @@ if [ -z "$VZCTL" ] || [ -z "$VZLIST" ] || [ -z "$KVMIMG" ]; then
 fi
 
 echo "Checking Container ID and associated disk space..."
-ID=`$VZLIST -a | grep -vi stopped | awk '{print $1}' | grep -v CTID | grep $MACHINE_ID`
+ID=`$VZLIST -a | grep -vi stopped | awk '{print $1}' | grep -v CTID | grep -w $MACHINE_ID`
 
 if [ -z "$ID" ] ; then
   echo "Container ID $MACHINE_ID not found. Exiting."
